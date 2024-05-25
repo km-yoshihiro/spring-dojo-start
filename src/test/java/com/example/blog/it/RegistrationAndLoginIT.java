@@ -17,6 +17,12 @@ public class RegistrationAndLoginIT {
 
     @Test
     public void integrationTest() {
+
+        //ユーザー作成
+        var xsrfToken = getRoot();
+
+
+        private String getRoot(){
             //## Arrange ##
 
             //## Act ##
@@ -33,5 +39,7 @@ public class RegistrationAndLoginIT {
                             assertThat(xsrfTokenCookie.getValue()).isNotBlank()
                     ); //Optional<XSRF-TOKEN=xxxxx>
 
+            return xsrfTokenOpt.get().getValue();
+        }
     }
 }
