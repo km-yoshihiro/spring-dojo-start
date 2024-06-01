@@ -1,9 +1,6 @@
 package com.example.blog.repository.user;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.Optional;
 
@@ -28,4 +25,12 @@ public interface UserRepository {
             @Param("password") String password ,
             @Param("enabled") boolean enabled
     );
-} //ユーザーのカラムが増えてくると取得内容が変わってくることがあるため、明確に取得カラムを指定する
+    //ユーザーのカラムが増えてくると取得内容が変わってくることがあるため、明確に取得カラムを指定する
+
+    @Delete("""
+            DELETE FROM users u WHERE u.username = #{username}
+            """)
+    void deleteByUsername(@Param("username")String username);
+    //paramで指定されたusername(String usernameが#{username}に挿入される
+    //windows環境では@Paramをつけないと動作しないことが確認されている。
+}
